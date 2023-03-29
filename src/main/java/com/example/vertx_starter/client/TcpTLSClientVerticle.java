@@ -1,7 +1,8 @@
 package com.example.vertx_starter.client;
 
-import com.example.vertx_starter.tls.*;
-import com.example.vertx_starter.tls.example.ExampleSecretKey;
+import com.example.vertx_starter.tls.psk.example.ExampleSecretKey;
+import com.example.vertx_starter.tls.psk.PskKeyCertOptions;
+import com.example.vertx_starter.tls.psk.PskSSLEngineOptions;
 import com.example.vertx_starter.verticle.TcpTLSServerVerticle;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;

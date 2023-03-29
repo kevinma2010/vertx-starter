@@ -1,4 +1,4 @@
-package com.example.vertx_starter.tls.example;
+package com.example.vertx_starter.tls.psk.example;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;

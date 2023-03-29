@@ -1,8 +1,8 @@
 package com.example.vertx_starter.verticle;
 
-import com.example.vertx_starter.tls.PskKeyCertOptions;
-import com.example.vertx_starter.tls.PskSSLEngineOptions;
-import com.example.vertx_starter.tls.example.ExampleSecretKey;
+import com.example.vertx_starter.tls.psk.PskKeyCertOptions;
+import com.example.vertx_starter.tls.psk.PskSSLEngineOptions;
+import com.example.vertx_starter.tls.psk.example.ExampleSecretKey;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.buffer.Buffer;
@@ -30,6 +30,11 @@ public class WebTLSServerVerticle extends AbstractVerticle {
     serverOptions.setSsl(true);
     serverOptions.setSslEngineOptions(new PskSSLEngineOptions());
     serverOptions.setKeyCertOptions(PskKeyCertOptions.create(identity -> new ExampleSecretKey()));
+
+    /*
+    String identify = "xxxxxx@device-id"
+    String identify = "urn@device-type"
+     */
 
     HttpServer server = vertx.createHttpServer(serverOptions);
     server.webSocketHandler(webSocket -> {

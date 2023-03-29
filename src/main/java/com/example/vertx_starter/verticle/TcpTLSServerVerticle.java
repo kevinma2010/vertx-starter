@@ -1,17 +1,11 @@
 package com.example.vertx_starter.verticle;
 
-import com.example.vertx_starter.tls.PskKeyStore;
-import com.example.vertx_starter.tls.PskSSLEngineOptions;
-import com.example.vertx_starter.tls.PskKeyCertOptions;
-import com.example.vertx_starter.tls.PskServerKeyManager;
-import com.example.vertx_starter.tls.example.ExampleSecretKey;
+import com.example.vertx_starter.tls.psk.PskSSLEngineOptions;
+import com.example.vertx_starter.tls.psk.PskKeyCertOptions;
+import com.example.vertx_starter.tls.psk.example.ExampleSecretKey;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.net.*;
-import org.conscrypt.Conscrypt;
-
-import javax.crypto.SecretKey;
-import java.security.Security;
 
 public class TcpTLSServerVerticle extends AbstractVerticle {
   public static final String NAME = TcpTLSServerVerticle.class.getSimpleName();

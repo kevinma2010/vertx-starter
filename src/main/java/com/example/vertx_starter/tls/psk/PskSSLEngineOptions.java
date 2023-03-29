@@ -1,4 +1,4 @@
-package com.example.vertx_starter.tls;
+package com.example.vertx_starter.tls.psk;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;

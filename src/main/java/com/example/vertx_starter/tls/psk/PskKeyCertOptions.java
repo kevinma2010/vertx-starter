@@ -1,4 +1,4 @@
-package com.example.vertx_starter.tls;
+package com.example.vertx_starter.tls.psk;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.net.KeyCertOptions;
