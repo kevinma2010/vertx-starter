@@ -25,13 +25,13 @@ public class Launcher {
 
 //    deployVerticle(vertx, deploymentOptions, MainVerticle.NAME, new MainVerticle());
 //    deployVerticle(vertx, deploymentOptions, WebVerticle.NAME, new WebServerVerticle());
-//    deployVerticle(vertx, deploymentOptions, TcpServerVerticle.NAME, new TcpServerVerticle());
-//    deployVerticle(vertx, deploymentOptions, TcpClientVerticle.NAME, new TcpClientVerticle());
+    deployVerticle(vertx, deploymentOptions, TcpServerVerticle.NAME, new TcpServerVerticle());
+    deployVerticle(vertx, deploymentOptions, TcpClientVerticle.NAME, new TcpClientVerticle());
 //    deployVerticle(vertx, deploymentOptions, UdpVerticle.NAME, new UdpVerticle());
-    deployVerticle(vertx, deploymentOptions, WebTLSServerVerticle.NAME, new WebTLSServerVerticle());
-    deployVerticle(vertx, deploymentOptions, WebTLSClientVerticle.NAME, new WebTLSClientVerticle());
-    deployVerticle(vertx, deploymentOptions, TcpTLSServerVerticle.NAME, new TcpTLSServerVerticle());
-    deployVerticle(vertx, deploymentOptions, TcpTLSClientVerticle.NAME, new TcpTLSClientVerticle());
+//    deployVerticle(vertx, deploymentOptions, WebTLSServerVerticle.NAME, new WebTLSServerVerticle());
+//    deployVerticle(vertx, deploymentOptions, WebTLSClientVerticle.NAME, new WebTLSClientVerticle());
+//    deployVerticle(vertx, deploymentOptions, TcpTLSServerVerticle.NAME, new TcpTLSServerVerticle());
+//    deployVerticle(vertx, deploymentOptions, TcpTLSClientVerticle.NAME, new TcpTLSClientVerticle());
   }
 
   static void deployVerticle(Vertx vertx, DeploymentOptions deploymentOptions, String verticleName, Verticle verticle) {

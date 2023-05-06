@@ -14,7 +14,7 @@ repositories {
   mavenCentral()
 }
 
-val vertxVersion = "4.3.7"
+val vertxVersion = "4.3.8"
 val junitJupiterVersion = "5.7.0"
 
 val webVerticleName = "com.example.vertx_starter.verticle.WebVerticle"
@@ -32,6 +32,7 @@ application {
 dependencies {
   implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
   implementation("io.vertx:vertx-web")
+  implementation("io.vertx:vertx-web-client")
   implementation("io.vertx:vertx-codegen")
   implementation("io.vertx:vertx-dropwizard-metrics")
   implementation("org.conscrypt:conscrypt-openjdk-uber:2.5.2")
