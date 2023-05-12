@@ -1,10 +1,14 @@
 package com.example.vertx_starter.verticle;
 
+import com.sun.jndi.toolkit.url.Uri;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.*;
 import io.vertx.core.streams.Pump;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Http 代理服务器
@@ -27,7 +31,11 @@ public class ProxyServerVerticle extends AbstractVerticle {
       if (req.method().toString().equals("CONNECT")) {
         this.handleConnect(req);
       } else {
-        this.handleRequest(req);
+        if (req.path().equals("/proxy")) {
+          this.handleProxyRequest(req);
+        } else {
+          this.handleRequest(req);
+        }
       }
     });
 
@@ -98,8 +106,6 @@ public class ProxyServerVerticle extends AbstractVerticle {
       url += "?" + request.query();
     }
 
-    System.out.println("proxy url: " + url);
-
     // Connect to server B and send file download request
     RequestOptions requestOptions = new RequestOptions();
     requestOptions.setMethod(request.method());
@@ -107,7 +113,47 @@ public class ProxyServerVerticle extends AbstractVerticle {
     requestOptions.setURI(url);
     request.headers().forEach(requestOptions::putHeader);
 
-    this.httpClient.request(requestOptions)
+    this.doRequest(request, requestOptions);
+  }
+
+  private void handleProxyRequest(HttpServerRequest request) {
+    String url = request.getParam("url");
+    if (url == null) {
+      request.response().setStatusCode(400).end("Missing URL parameter");
+      return;
+    }
+
+    if (request.method() != HttpMethod.GET) {
+      request.response().setStatusCode(405).end("Method not allowed");
+      return;
+    }
+
+    URI uri;
+    try {
+      uri = new URI(url);
+    } catch (URISyntaxException e) {
+      request.response().setStatusCode(400).end("Invalid URL parameter");
+      return;
+    }
+
+    RequestOptions requestOptions = new RequestOptions();
+    request.headers().forEach(requestOptions::putHeader);
+    requestOptions.setMethod(HttpMethod.GET);
+    requestOptions.setHost(uri.getHost());
+    requestOptions.setSsl(uri.getScheme().equals("https"));
+    requestOptions.setURI(uri.getRawPath());
+    if (uri.getPort() != -1)  {
+      requestOptions.setPort(uri.getPort());
+    } else {
+      requestOptions.setPort(requestOptions.isSsl() ? 443 : 80);
+    }
+
+    this.doRequest(request, requestOptions);
+  }
+
+  private void doRequest(HttpServerRequest request, RequestOptions requestOptions) {
+    // Connect to server B and send file download request
+    httpClient.request(requestOptions)
       .compose(clientRequest -> {
         clientRequest.exceptionHandler(throwable -> {
           request.response().setStatusCode(500).end("Server error");
