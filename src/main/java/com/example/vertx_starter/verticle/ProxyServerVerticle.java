@@ -1,6 +1,5 @@
 package com.example.vertx_starter.verticle;
 
-import com.sun.jndi.toolkit.url.Uri;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -138,6 +137,7 @@ public class ProxyServerVerticle extends AbstractVerticle {
 
     RequestOptions requestOptions = new RequestOptions();
     request.headers().forEach(requestOptions::putHeader);
+    requestOptions.removeHeader("Host");
     requestOptions.setMethod(HttpMethod.GET);
     requestOptions.setHost(uri.getHost());
     requestOptions.setSsl(uri.getScheme().equals("https"));
